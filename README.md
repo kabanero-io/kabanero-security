@@ -3,7 +3,7 @@
 Security for Kabanero is has several aspects. 
 1) Support for securing the creation of Kabanero instances and the Kabanero backplane. 
 2) Support for authentication and RBAC for the maintenance of Kabanero Collections (CRUD for Collections)
-3) Security aspects of the Kabanero pipeline
+3) Security aspects of the Kabanero and Appsody build pipeline
 
 ## Securing the creation of a Kabanero backplane and instance
 The creation of the Open Shift environment that is activated in support of a Kabanero backplane, and then subsequent instances, is done by an Operator/Installer (the Todd persona) using the Kabanero operator. This role requires cluster admin privileges in order to create new clusters/pods and other resources.
@@ -13,7 +13,7 @@ When an application administrator (the Champ persona) needs to create a new Kaba
 ## Support for authentication and RBAC for Kabanero Collection maintenance
 For the application administrator (Champ persona) to be able to create a set of locally installed collections, he needs to authenticate with a Github instance that is copied off the Kabanero-io Git. Once authenticated, control over the artifacts associated with a Kabanero instance is managed using Git team membership.  Anyone acting in the administation role, must be part of the Kabanero-admins team (or similar admin-controlled team name). Read/write access to collections is then managed using Git-based RBAC.  
 
-## Kabanero pipeline and build security
+## Kabanero and Appsody pipeline and build security
 For application developers (the Jane persona), Kabanero security is mostly focused on the build pipeline. While we expect developers to use their own static code scanning technology that is tied into Git, we offer several options as best practices in this area. <add some content here about use of Appscan or Snyk in the Git PR code commit process>
   
 Security for Kabanero and Appsody application builds has several aspects. 
