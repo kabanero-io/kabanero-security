@@ -1,12 +1,12 @@
 # kabanero-security
 
 Security for Kabanero is has several aspects. 
-1) Support for securing the creation of Kabanero instances and the Kabanero backplane. 
-2) Support for authentication and RBAC for the maintenance of Kabanero Collections (CRUD for Collections)
-3) Security aspects of the Kabanero and Appsody build pipeline
+1) Support for securing the creation of Kabanero instances.
+2) Support for securing the creation of Kabanero collections. 
+3) Security aspects of the Kabanero and Appsody build pipeline.
 
-## Securing the creation of a Kabanero backplane and instance
-The creation of the Open Shift environment that is activated in support of a Kabanero backplane, and then subsequent instances, is done by an Operator/Installer (the Todd persona) using the Kabanero operator. This role requires cluster admin privileges in order to create new clusters/pods and other resources.
+## Securing the creation of a Kabanero instances
+The creation of the K8s/Open Shift environment that is activated in support of a Kabanero instances, is done by an Operator/Installer using an install script that enables the Kabanero operator and associated resources. This role requires cluster admin privileges in order to create new clusters/pods and other resources.
 
 When an application administrator (the Champ persona) needs to create a new Kabanero instance running in the backplane, they also use the Kabanero operator and require an Open Shift ID in the IAM registry with enough priviledge to start and stop various resources (ie: doing an activate/deactivate).
 
