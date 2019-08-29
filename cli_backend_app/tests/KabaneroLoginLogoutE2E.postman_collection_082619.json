@@ -1,0 +1,942 @@
+{
+	"info": {
+		"_postman_id": "82a84aee-5908-4b1f-9fc4-181fa2c01508",
+		"name": "KabaneroLoginLogoutE2E",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "KabPATLogin_SuccessJWT1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains jwt\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"jwt1\", jsonData.jwt);",
+							"",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"gituser\":\"{{gitLogin2FA}}\",\"gitpat\":\"{{goodAccessToken}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabPATLogin_SuccessJWT2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains jwt\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"jwt2\", jsonData.jwt);",
+							"",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"gituser\":\"{{gitLogin2FA}}\",\"gitpat\":\"{{goodAccessToken}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabPATLogin_SuccessJWT3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains jwt\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"jwt3\", jsonData.jwt);",
+							"",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"gituser\":\"{{gitLogin2FA}}\",\"gitpat\":\"{{goodAccessToken}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppWithJwt1_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message contains pong and success true\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"pong\");",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAdminAppWithJwt2_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message contains pong and success true\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"pong\");",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/adminping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"adminping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppWithJwt3_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message contains pong and success true\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"pong\");",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt3}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabPatLogoutJwt2_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							"",
+							"pm.test(\"Check success is true\", function () {",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabPatLogoutJwt3_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							"",
+							"pm.test(\"Check success is true\", function () {",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt3}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppWithJwt1Again_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message contains pong and success true\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"pong\");",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppAfterLogoutJwt2_Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Check message contains The supplied JWT was previously logged out\", function () {",
+							"    pm.expect(jsonData.message).to.include(\"The supplied JWT was previously logged out\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppAfterLogoutJwt3_Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Check message contains The supplied JWT was previously logged out\", function () {",
+							"    pm.expect(jsonData.message).to.include(\"The supplied JWT was previously logged out\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt3}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppWithJwt1Again_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message contains pong and success true\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"pong\");",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabPatLogoutJwt1_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							"",
+							"pm.test(\"Check success is true\", function () {",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppAfterLogoutJwt1_Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Check message contains The supplied JWT was previously logged out\", function () {",
+							"    pm.expect(jsonData.message).to.include(\"The supplied JWT was previously logged out\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
