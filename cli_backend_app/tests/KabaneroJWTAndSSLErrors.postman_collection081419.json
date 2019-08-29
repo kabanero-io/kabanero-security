@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "33f7ad1e-5352-4415-af9e-b9b68d9a4d04",
+		"name": "KabaneroJWTAndSSLErrors",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "KabLogin_BadJWTKeyAlias_Error500",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Check message value contains An internal error occurred\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"An internal error occurred.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"gituser\":\"{{gitLogin2FA}}\",\"gitpat\":\"{{goodAccessToken}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabLogin_BadSSLKeyPassword_Error500",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Check message value contains An internal error occurred\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"An internal error occurred.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"gituser\":\"{{gitLogin2FA}}\",\"gitpat\":\"{{goodAccessToken}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

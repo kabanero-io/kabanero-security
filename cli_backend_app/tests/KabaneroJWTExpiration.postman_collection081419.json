@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "57634e43-3f22-4857-b544-da6f4aea3d3b",
+		"name": "KabaneroJWTExpiration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "KabPATLogin_Success_Wait",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains jwt\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"jwt\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"jwt\", jsonData.jwt);",
+							"",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							"",
+							"setTimeout(function(){}, [320000]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"gituser\":\"{{gitLogin2FA}}\",\"gitpat\":\"{{goodAccessToken}}\"}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabAccessSecuredAppWithJwt_Error401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/securedping",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"securedping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "KabPATLogoutTwiceSuccess Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50913cfb-c840-480f-ad63-4691e51f8a5c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response contains message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"message\");",
+							"});",
+							"",
+							"pm.test(\"Response contains success\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.test(\"Check message value contains ok\", function () {",
+							"    pm.expect(jsonData.message).to.eql(\"ok\");",
+							"});",
+							"",
+							"pm.test(\"Check success is true\", function () {",
+							"    pm.expect(jsonData.success).to.eql(\"true\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
