@@ -34,7 +34,7 @@ There are a few ways of going about building the application and producing the W
 
 ### Build using Maven
 
-As of commit [`9776648`](https://github.ibm.com/btiffany/kabasec/commit/977664862248e0067fabaa42f6344a95eebc0325), the project can be built with Maven. There are two ways to do this: from the command line or from Eclipse.
+There are two ways to build the project using Maven: from the command line or from Eclipse.
 
 #### Build from the command line
 
