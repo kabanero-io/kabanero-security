@@ -38,7 +38,7 @@ oc start-build scanner --from-file=scanner/Dockerfile --follow
 The build creates the image,
 
 ```
-docker-registry.default.svc:5000/kabanero/oscap-scanner
+docker-registry.default.svc:5000/kabanero/scanner
 ```
 
 ## Update the sample scan-task.yaml with the image containing the scanner
