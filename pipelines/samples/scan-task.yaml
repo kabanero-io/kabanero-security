@@ -29,8 +29,15 @@ spec:
       volumeMounts:
         - name: docker-socket
           mountPath: /var/run/docker.sock
+# Required for running the oscap-docker tool. Remove if not used by your scanner.
+        - name: var-lib-containers
+          mountPath: /var/lib/containers
   volumes:
     - name: docker-socket
       hostPath:
         path: /var/run/docker.sock
         type: Socket
+# Required for running the oscap-docker tool. Remove if not used by your scanner.
+    - name: var-lib-containers
+      hostPath:
+        path: /var/lib/containers

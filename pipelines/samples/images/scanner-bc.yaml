@@ -1,0 +1,39 @@
+# BuildConfig for creating the scanner image
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: scanner
+  name: scanner
+  namespace: kabanero
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: scanner:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    configMaps:
+    - configMap:
+        name: rhsm-conf
+      destinationDir: rhsm-conf
+    - configMap:
+        name: rhsm-ca
+      destinationDir: rhsm-ca
+    secrets:
+    - destinationDir: etc-pki-entitlement
+      secret:
+        name: etc-pki-entitlement
+    - destinationDir: etc-pki-consumer
+      secret:
+        name: etc-pki-consumer
+    type: Binary
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  successfulBuildsHistoryLimit: 5
