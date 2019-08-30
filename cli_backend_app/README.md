@@ -1,4 +1,4 @@
-# Welcome to the Kanbanero CLI backend app and related files.
+# Welcome to the Kabanero CLI backend app and related files.
 
 
 Having a recent Liberty build is recommended.  19.0.0.3 is the minimum, (or maybe higher).
