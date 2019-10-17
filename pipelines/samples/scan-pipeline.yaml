@@ -1,5 +1,4 @@
 # Sample scanning pipeline that uses the scan-task and specifies the scanner command with arguments to use.
-# The task will issue the command as <command-with-flags> <docker image url> <scanner-arguments>.
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -11,7 +10,7 @@ spec:
     - name: docker-image
       type: image
   tasks:
-    - name: appsody-scan
+    - name: kabanero-scan
       taskRef:
         name: scan-task
       resources:
@@ -21,7 +20,11 @@ spec:
         - name: docker-image
           resource: docker-image
       params:
-      - name: command-with-flags
-        value: oscap-docker image-cve
-      - name: scanner-arguments
-        value: --report report.html
+      - name: command
+        value: oscap-chroot
+      - name: pathToRootfs
+        value: /workspace/image_rootfs
+      - name: scansDir
+        value: kabanero/scans
+      - name: pathToInputFile
+        value: /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml

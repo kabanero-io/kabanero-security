@@ -1,24 +1,13 @@
-# Sample Dockerfile for entitled build for a scanner image.
-# See https://docs.openshift.com/container-platform/4.1/builds/running-entitled-builds.html for other ways to run entitled builds.
-FROM registry.access.redhat.com/rhel7/openscap:latest
+# Dockerfile for the image containing Atomic and OpenSCAP tools for scanning.
+FROM registry.access.redhat.com/ubi7:latest
 USER root
-# Copy entitlements
-COPY ./etc-pki-entitlement /etc/pki/entitlement
-COPY ./etc-pki-consumer /etc/pki/consumer
-# Copy subscription manager configuration and certificate authority files
-COPY ./rhsm-conf /etc/rhsm
-COPY ./rhsm-ca /etc/rhsm/ca
+# Copy repository configuration
+COPY ./yum.repos.d /etc/yum.repos.d
 # Delete /etc/rhsm-host to use entitlements from the build container
 RUN rm /etc/rhsm-host && \
-    # Initialize /etc/yum.repos.d/redhat.repo
-    # See https://access.redhat.com/solutions/1443553
-    yum repolist --disablerepo=* && \
-    subscription-manager repos --enable rhel-7-server-extras-rpms && \
-#    yum -v -y update && \
-    yum -v -y install docker-1.13.1 docker-python atomic && \
+    yum-config-manager --disable ubi-* && \
+    yum -v -y install atomic openscap-scanner openscap-utils scap-security-guide && \
     yum clean all -y && \
-    # Remove entitlements and Subscription Manager config files
-    rm -rf /etc/pki/entitlement && \
-    rm -rf /etc/pki/consumer && \
-    rm -rf /etc/rhsm
-# The oscap-docker tool requires privileged access to mount the filesystem of the image or container for offline scanning.
+    # Remove repos' configs
+    rm -rf /etc/rhsm /etc/yum.repos.d /etc/pki/entitlement /etc/pki/rpm-gpg
+# The atomic tool requires privileged access to mount the filesystem of the image for offline scanning.

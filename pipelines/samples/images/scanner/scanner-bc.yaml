@@ -1,9 +1,9 @@
-# BuildConfig for creating the scanner image
+# BuildConfig for creating the image containing Atomic and OpenSCAP tools for scanning. 
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   labels:
-    build: scanner
+    build: scanner 
   name: scanner
   namespace: kabanero
 spec:
@@ -20,18 +20,8 @@ spec:
     binary: {}
     configMaps:
     - configMap:
-        name: rhsm-conf
-      destinationDir: rhsm-conf
-    - configMap:
-        name: rhsm-ca
-      destinationDir: rhsm-ca
-    secrets:
-    - destinationDir: etc-pki-entitlement
-      secret:
-        name: etc-pki-entitlement
-    - destinationDir: etc-pki-consumer
-      secret:
-        name: etc-pki-consumer
+        name: yum-repos-d
+      destinationDir: yum.repos.d
     type: Binary
   strategy:
     dockerStrategy: {}

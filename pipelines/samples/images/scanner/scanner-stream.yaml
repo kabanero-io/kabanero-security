@@ -1,0 +1,13 @@
+# ImageStream for creating the image containing Atomic and OpenSCAP tools for scanning. 
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    build: scanner 
+  name: scanner 
+  namespace: kabanero
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: docker-registry.default.svc:5000/kabanero/scanner
