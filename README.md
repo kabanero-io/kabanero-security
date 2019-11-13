@@ -1,6 +1,6 @@
 # kabanero-security
 
-Security for Kabanero is has several aspects. 
+Security for Kabanero has several aspects. 
 1) Support for securing the K8s/Open Shift environment and creation of Kabanero instances.
 2) Support for securing the creation of Kabanero collections. 
 3) Security aspects of the Kabanero and Appsody build pipeline.
