@@ -1,0 +1,29 @@
+# BuildConfig for creating the image containing Atomic tool. 
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: signer
+  name: signer
+  namespace: kabanero
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: signer:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    configMaps:
+    - configMap:
+        name: yum-repos-d
+      destinationDir: yum.repos.d
+    type: Binary
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  successfulBuildsHistoryLimit: 5
