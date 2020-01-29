@@ -17,16 +17,15 @@
 
 - The following are the steps we will automate in order to enable container signing in the Kabanero pipeline:
 Build:
-### 1) Download and build an Skopeo signing image:
+## 1) Download and build an Skopeo signing image:
 See: https://github.com/containers/skopeo
-### 2)Upload the image to DockerHub (in kabanero/signing) - these steps are required as part of Kabanero build
+## 2)Upload the image to DockerHub (in kabanero/signing) - these steps are required as part of Kabanero build
 
 Done as part of Kabanero pipelines impl:
-### 3) Update scan-pipeline.yaml to include the pipeline task for signing.  Sample:
+## 3) Update scan-pipeline.yaml to include the pipeline task for signing.  Sample:
 
 The scan-pipeline.yaml file can be used to run the scan-task task. Add the resources and tasks to your pipeline,
 
-```
   resources:
     - name: git-source
       type: git
@@ -48,6 +47,6 @@ The scan-pipeline.yaml file can be used to run the scan-task task. Add the resou
       - name: signDir
         value: kabanero/signing
         
-## For phase 2 of this support, we automate the creation of the public/private keys for signing by doing it with GPG in the Kabanero operator.
+For phase 2 of this support, we automate the creation of the public/private keys for signing by doing it with GPG in the Kabanero operator.
 
 ## Discussion:  
