@@ -60,7 +60,7 @@ The scan results are stored by default in the /var/lib/kabanero/scans directory 
 For phase 2 of this support, we make the scan results available from the Tekton Dashboard by emittinmg them into the task's console with delimiters showing where the report begins/ends and html report begins/ends.
 
 ## Discussion:  
-There needs to be a phase 3 of this support that addressese the following:
+There needs to be a phase 3 of this support that addresses the following:
 
 1) we need to make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.
 2) we need to help the administrator (Champ) in configuring what OVAL files should be enabled for a run - allowing him to tweak what is being assessed and narrow the run results
