@@ -3,7 +3,7 @@
 ## Key Concepts / Background
 - As part of the devsecops story for Kabanero, we need to offer an out of the box container scanning task in the build pipeline.
 
-[High level overview](../Kabanero_scan_sign.pdf)
+[High level overview](../design/Kabanero_scan_sign.pdf)
 
 ## User stories
 - As Champ (architect), I would like to be able to ensure that there is a container scanning task in the build pipeline in order to ensure we are able to verify the contents of any containers before they are made ready for deployment.
