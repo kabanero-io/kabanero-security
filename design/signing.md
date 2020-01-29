@@ -3,6 +3,8 @@
 ## Key Concepts / Background
 - As part of the devsecops story for Kabanero, we need to offer an out of the box container signing task in the build pipeline.
 
+[High level overview](../design/Kabanero_scan_sign.pdf)
+
 ## User stories
 - As Champ (architect), I would like to be able to ensure that application containers are signed when they are deployed/saved in a container registy.
 
