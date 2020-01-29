@@ -1,7 +1,7 @@
 # Kabanero Security Container Scanning 
 
 ## Key Concepts / Background
-- As part of the devsecops story for Kabanero, we need to offer an out of the box container scanning task in the build pipeline.ebsite, guides, documentation, videos and blogs.
+- As part of the devsecops story for Kabanero, we need to offer an out of the box container scanning task in the build pipeline.
 
 ## User stories
 - As Champ (architect), I would like to be able to ensure that there is a container scanning task in the build pipeline in order to ensure we are able to verify the contents of any containers before they are made ready for deployment.
@@ -52,8 +52,7 @@ The scan-pipeline.yaml file can be used to run the scan-task task. Add the resou
       - name: pathToInputFile
         value: /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
 ```
-
-     If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter.
+If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter.
 
 ### 4) Scan results
 The scan results are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan. The files are named scan-oval-results.xml and oscap-chroot-report.html by default and these names can be modified in the scan-task.yaml file.
