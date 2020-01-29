@@ -1,0 +1,9 @@
+%echo Generating a default key
+Key-Type: RSA
+Key-Length: 2048
+Name-Real: <Name of signature key>
+Name-Comment: <Any comment>
+Name-Email: <email address>
+Expire-Date: 0
+%commit
+%echo done

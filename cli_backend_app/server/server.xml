@@ -1,0 +1,58 @@
+<server description="kabasec">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>microProfile-2.0</feature>
+    </featureManager>
+
+     <!-- The issuer specified here must match the issuer configured in the jwtBuilder -->
+    <mpJwt id="kabmpjwt" issuer="${jwt.issuer}" keyName="default" signatureAlgorithm="HS256" 
+        sharedKey="${AESEncryptionKey}"/> 
+
+    <!-- NOTE: This id cannot be changed since it's hard coded to be used in the runtime code -->
+    <jwtBuilder expiresInSeconds="86400" id="kabsecbuilder" issuer="${jwt.issuer}" 
+        keyStoreRef="defaultKeyStore" keyAlias="default" signatureAlgorithm="HS256" 
+        sharedKey="${AESEncryptionKey}"/>
+
+    <!--
+    <keyStore id="defaultKeyStore" password="keyspass"/>
+    -->
+    <sslDefault sslRef="kabSSLConfig"/>
+    <ssl id="kabSSLConfig" keyStoreRef="defaultKeyStore" trustStoreRef="validationKeystore"/>
+    <keyStore id="defaultKeyStore" />
+    <keyStore id="validationKeystore" location="${server.config.dir}/resources/security/cacerts" type="jks" password="changeit"/>
+
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+    <applicationMonitor updateTrigger="mbean"/>
+
+    
+    <!-- GitHub teams to security groups mappings. Each name is groupsForTeam_(team name)
+         Each value is a comma separated list of groups for this team.
+
+         Use these groups in the jaxrs @RolesAllowed annotation.
+         Team names can also be used explicitly. 
+         _ can be substituted for nonalphabetic characters. 
+         There's also a default group "allusers" that everyone is a member of.
+    -->
+    <!--
+    <variable name="groupsForTeam_all-ibmers@IBM" value="operator,admin,tester,deployer,janitor" />
+    <variable name="groupsForTeam_Security_SSO_OpenLiberty" value="operator,admin,jogger" />
+    -->
+
+    <!-- Encryption key for github credentials. -->
+    <!-- To keep this secure, import this from another file, or  bring it in as an environment var from a kubernetes secret -->
+    <!-- https://www.ibm.com/support/knowledgecenter/SSRTLW_8.5.5/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/cwlp_pwd_encrypt.html -->
+    <!-- <variable name="AESEncryptionKey" value="put_me_someplace_very_secure"/> -->
+
+    <!-- this will be the issuer of the jwts -->
+    <variable name="jwt.issuer" defaultValue="https://kabasec.com" />
+
+    <!-- this will be the default base url for github api calls -->
+    <variable defaultValue="https://api.github.com" name="github.api.url" />
+
+  
+    <logging  traceSpecification="*=info:com.ibm.ws.security.*=all:com.ibm.ws.webcontainer.security.*=all"
+        traceFileName="trace.log" maxFileSize="20" maxFiles="10" />
+</server>

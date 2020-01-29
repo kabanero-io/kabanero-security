@@ -1,0 +1,41 @@
+# This task scans the docker image using the specified command and arguments.
+# It requires an image that contains the scanner to be used to scan the docker-image image input.
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: scan-task
+spec:
+  inputs:
+    resources:
+      - name: git-source
+        type: git
+      - name: docker-image
+        type: image
+    params:
+      - name: command
+        description: The scanner command
+        default: oscap-chroot
+      - name: pathToRootfs
+        description: The directory where the image to be scanned will be mounted to
+        default: /workspace/image_rootfs
+      - name: scansDir
+        description: The relative directory to save the scan outputs to
+        default: kabanero/scans
+      - name: pathToInputFile
+        description: The scanner's XCCDF or OVAL file 
+        default: /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+  steps:
+    - name: scan-image
+      securityContext:
+        privileged: true
+      image: docker-registry.default.svc:5000/kabanero/scanner
+      command: ['/bin/bash']
+      args: ['-c', 'mkdir -p ${inputs.params.pathToRootfs}; mkdir -p /workspace/scans/${inputs.params.scansDir}; atomic pull --storage=ostree ${inputs.resources.docker-image.url}; atomic mount --storage=ostree ${inputs.resources.docker-image.url} ${inputs.params.pathToRootfs}; ${inputs.params.command} ${inputs.params.pathToRootfs} oval eval --results /workspace/scans/${inputs.params.scansDir}/scan-oval-results.xml --report /workspace/scans/${inputs.params.scansDir}/oscap-chroot-report.html ${inputs.params.pathToInputFile}']
+      volumeMounts:
+        - name: host-save-dir
+          mountPath: /workspace/scans
+  volumes:
+# The host directory to mount where the scansDir will be created and the the scan outputs will be saved to.
+    - name: host-save-dir
+      hostPath:
+        path: /var/lib

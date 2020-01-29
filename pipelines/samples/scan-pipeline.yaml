@@ -1,0 +1,30 @@
+# Sample scanning pipeline that uses the scan-task and specifies the scanner command with arguments to use.
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: scan-pipeline
+spec:
+  resources:
+    - name: git-source
+      type: git
+    - name: docker-image
+      type: image
+  tasks:
+    - name: kabanero-scan
+      taskRef:
+        name: scan-task
+      resources:
+        inputs:
+        - name: git-source
+          resource: git-source
+        - name: docker-image
+          resource: docker-image
+      params:
+      - name: command
+        value: oscap-chroot
+      - name: pathToRootfs
+        value: /workspace/image_rootfs
+      - name: scansDir
+        value: kabanero/scans
+      - name: pathToInputFile
+        value: /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml

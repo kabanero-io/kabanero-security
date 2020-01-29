@@ -1,0 +1,32 @@
+# BuildConfig for creating the image containing OpenSCAP tools for scanning. 
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: scanner 
+  name: scanner
+  namespace: kabanero
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: scanner:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    configMaps:
+    - configMap:
+        name: licenses
+      destinationDir: licenses
+    - configMap:
+        name: yum-repos-d
+      destinationDir: yum.repos.d
+    type: Binary
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  successfulBuildsHistoryLimit: 5
