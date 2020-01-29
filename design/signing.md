@@ -47,7 +47,7 @@ The scan-pipeline.yaml file can be used to run the scan-task task. Add the resou
         value: /workspace/image_rootfs
       - name: signDir
         value: kabanero/signing
-
-For phase 2 of this support, we automate the creation of the public/private keys for signing by doing it with GPG in the Kabanero operator.
+        
+## For phase 2 of this support, we automate the creation of the public/private keys for signing by doing it with GPG in the Kabanero operator.
 
 ## Discussion:  
