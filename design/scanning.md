@@ -17,18 +17,22 @@
 
 - The following are the steps we will automate in order to enable container scanning in the Kabanero pipeline:
 Build:
-1) Download and build an OpenScap scanner image:
+### 1) Download and build an OpenScap scanner image:
 See: https://www.open-scap.org/download/
-2) Add OVAL definition files to the image and upload it to DockerHub (in kabanero/scanner) - these steps are required as part of Kabanero build
+### 2) Add OVAL definition files to the image and upload it to DockerHub (in kabanero/scanner) - these steps are required as part of Kabanero build
 
 Done as part of Kabanero pipelines impl:
-3) Update scan-pipeline.yaml to include the pipeline task for scanning.  Sample:
-   resources:
+### 3) Update scan-pipeline.yaml to include the pipeline task for scanning.  Sample:
+
+The scan-pipeline.yaml file can be used to run the scan-task task. Add the resources and tasks to your pipeline,
+
+```
+  resources:
     - name: git-source
       type: git
     - name: docker-image
       type: image
-   tasks:
+  tasks:
     - name: kabanero-scan
       taskRef:
         name: scan-task
@@ -47,12 +51,18 @@ Done as part of Kabanero pipelines impl:
         value: kabanero/scans
       - name: pathToInputFile
         value: /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+```
 
-   If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter.
-4) Scan results
+     If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter.
+
+### 4) Scan results
 The scan results are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan. The files are named scan-oval-results.xml and oscap-chroot-report.html by default and these names can be modified in the scan-task.yaml file.
 
 For phase 2 of this support, we make the scan results available from the Tekton Dashboard by emittinmg them into the task's console with delimiters showing where the report begins/ends and html report begins/ends.
 
-#  - Discussion:  
-There needs to be a phase 3 of this support that will make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.
+## Discussion:  
+There needs to be a phase 3 of this support that addressese the following:
+
+1) we need to make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.
+2) we need to help the administrator (Champ) in configuring what OVAL files should be enabled for a run - allowing him to tweak what is being assessed and narrow the run results
+3) after #2 above is addressed, we need to be able to fail the build when any Red/Yellow results are found in the scan
