@@ -21,7 +21,6 @@ Build:
 See: https://github.com/containers/skopeo
 ### 2)Upload the image to DockerHub (in kabanero/signing) - these steps are required as part of Kabanero build
 
-Done as part of Kabanero pipelines impl:
 ### 3) Update scan-pipeline.yaml to include the pipeline task for signing.  Sample:
 
 The scan-pipeline.yaml file can be used to run the scan-task task. Add the resources and tasks to your pipeline,
