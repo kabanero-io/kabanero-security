@@ -57,7 +57,7 @@ The scan-pipeline.yaml file can be used to run the scan-task task. Add the resou
 If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter.
 
 ### 4) Scan results
-The scan results are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan. The files are named scan-oval-results.xml and oscap-chroot-report.html by default and these names can be modified in the scan-task.yaml file.
+The results.xml and report.html files are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan.
 
 For phase 2 of this support, we make the scan results available from the Tekton Dashboard by emittinmg them into the task's console with delimiters showing where the report begins/ends and html report begins/ends.
 
