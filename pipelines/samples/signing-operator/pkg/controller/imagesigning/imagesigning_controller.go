@@ -3,6 +3,7 @@ package imagesigning
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -206,14 +207,29 @@ func findSecret(r *ReconcileImageSigning, ns string) (*corev1.Secret, error) {
 	}
 	return nil, nil
 }
+
+// return ImageSigning CR instance
+// If there is only one, return it.
+// If there are multiple instances exist, return the one which currently using.
+// It can be found by examining Generated field in ImageSigningStatus.
+// If there is not the one which has Generated flag, then it's an error condition
+// since it cannot determine which one should use.
 func findCR(r *ReconcileImageSigning, ns string) (*securityv1alpha1.ImageSigning, error) {
 	cr := securityv1alpha1.ImageSigningList{}
 	err := r.client.List(context.Background(), &cr, client.InNamespace(ns))
 	if err != nil {
 		return nil, err
 	}
-	for _, _cr := range cr.Items {
-		return &_cr, nil
+	if len(cr.Items) == 1 {
+		return &cr.Items[0], nil
+	} else {
+		for _, _cr := range cr.Items {
+			if _cr.Status.Generated {
+				return &_cr, nil
+			}
+		}
+		err := errors.New("more than one ImageSigning custom resources found")
+		return nil, err
 	}
 	return nil, nil
 }

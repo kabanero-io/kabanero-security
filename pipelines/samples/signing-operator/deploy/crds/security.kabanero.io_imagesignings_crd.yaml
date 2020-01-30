@@ -27,12 +27,7 @@ spec:
             submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds'
           type: string
         metadata:
-          properties:
-            name:
-              description: name is a string value to define the name of this resource.
-                In order to maintain one resource in a namespace, the value should be "default".
-              type: string
-              pattern: ^default$
+          type: object
         spec:
           description: ImageSigningSpec defines the desired state of ImageSigning
           properties:
