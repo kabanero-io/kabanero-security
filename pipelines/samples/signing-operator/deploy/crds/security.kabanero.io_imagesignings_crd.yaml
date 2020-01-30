@@ -1,0 +1,97 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: imagesignings.security.kabanero.io
+spec:
+  group: security.kabanero.io
+  names:
+    kind: ImageSigning
+    listKind: ImageSigningList
+    plural: imagesignings
+    singular: imagesigning
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: ImageSigning is the Schema for the imagesignings API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          properties:
+            name:
+              description: name is a string value to define the name of this resource.
+                In order to maintain one resource in a namespace, the value should be "default".
+              type: string
+              pattern: ^default$
+        spec:
+          description: ImageSigningSpec defines the desired state of ImageSigning
+          properties:
+            identity:
+              description: either Identity or Keypair needs to be set. When Identity
+                is set, a keypair will be generated based on the attributes of Identity.
+                When Keypair is set, the keypair will be imported from Keypair. Keypair
+                takes precedence when both are set.
+              properties:
+                comment:
+                  type: string
+                email:
+                  type: string
+                name:
+                  type: string
+              required:
+              - email
+              - name
+              type: object
+            keypair:
+              description: SignatureKeypair defines the keypairs to be imported.
+              properties:
+                publicKey:
+                  type: string
+                secretKey:
+                  description: when the publicKey and secretKey values are set, instead
+                    of generating a new key pair, these values will be used. in order
+                    to handle multi line data in yaml file, adding |= characters at
+                    the top of the data. which indicate the data is literal and chomping.
+                  type: string
+              required:
+              - publicKey
+              - secretKey
+              type: object
+          type: object
+        status:
+          description: ImageSigningStatus defines the observed state of ImageSigning
+          properties:
+            errorMessage:
+              type: string
+            generated:
+              description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
+                of cluster Important: Run "operator-sdk generate k8s" to regenerate
+                code after modifying this file Add custom validation using kubebuilder
+                tags: https://book-v1.book.kubebuilder.io/beyond_basics/generating_crd.html'
+              type: boolean
+            publicKey:
+              type: string
+            secretKey:
+              type: string
+          required:
+          - errorMessage
+          - generated
+          - publicKey
+          - secretKey
+          type: object
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
