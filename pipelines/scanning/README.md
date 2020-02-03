@@ -68,15 +68,36 @@ The scan-pipeline.yaml file can be used to run the scan-task task. Add the resou
       params:
       - name: command
         value: oscap-chroot
-      - name: pathToRootfs
-        value: /workspace/image_rootfs
-      - name: scansDir
-        value: kabanero/scans
+# Use module to specify the type of SCAP content to use. For example, oval or xccdf.
+      - name: module
+        value: oval
+# Use options-and-arguments to specify the module's operation options and arguments.
+#      - name: options-and-arguments
+# To evaluate a specific definition with an OVAL file:
+#        value: --id <definition-id>
+# For example, --id oval:ssg-accounts_password_minlen_login_defs:def:1
+#
+# To evaluate a specific profile from a XCCDF benchmark file:
+#        value: --profile <profile-id>
+# For example, --profile hipaa
+#
+# To evaluate a specific profile from a XCCDF benchmark file that requires a remote resource:
+#        value: --fetch-remote-resources --profile <profile-id>
+# For example, --fetch-remote-resources --profile xccdf_org.ssgproject.content_profile_pci-dss
+#
+# To use a CPE dictionary while evaluating a specific profile:
+#        value: --profile <profile-id> --cpe <dictionary-file-name relative to the task's mount point>
+# For example (with SCAP content mounted to /scap/content), --profile xccdf_org.ssgproject.content_profile_ospp42 --cpe /scap/content/ssg-rhel7-cpe-dictionary.xml
+#
+# To evaluate a specific rule:
+#        value: --profile <profile-id> --rule <rule-id>
+# For example, --profile xccdf_org.ssgproject.content_profile_ospp42 --rule xccdf_org.ssgproject.content_rule_disable_host_auth
+#
       - name: pathToInputFile
-        value: /usr/share/xml/scap/ssg/content/ssg-rhel7-ds.xml
+        value: /scap/content/ssg-rhel7-ds.xml
 ```
 
-If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter.
+If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter. Use the options-and-arguments parameter to customize the scan by specifying the module's operation options and arguments.
 
 ## Create the PipelineResource
 
@@ -109,5 +130,5 @@ You can also login to the Tekton Dashboard and create a new pipeline run to exec
 
 ## Scan results
 
-The scan results are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan. The files are named scan-oval-results.xml and oscap-chroot-report.html by default and these names can be modified in the scan-task.yaml file.
+The results.xml and report.html files are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan.
 
