@@ -65,6 +65,14 @@ signing-operator-77b489cf7f-n4d9z                          1/1     Running   0  
 
 ### Create a image signing custom resource instance for generating a keypair.
 
+If you have installed the image signing sample, please delete existing signature-secret-key secret, because the image signing operator will not create a secret if it already exists. To delete the secret, run
+```
+oc delete secret/signature-secret-key -n kabanero
+```
+If the image signing sample has not been installed, install it by using
+kabanero-security/pipelines/samples/signing/create-resources-for-signing-operator-4.sh
+This script is the same as the original scrept which configures image signing sample pipeline, but it skips generating a keypair. Make sure that the file is modified to set required parameters for your environment prior to run it.
+
 Modify signing-operator/deploy/crds/security.kabanero.io_v1alpha1_imagesigning_generate_sample_cr.yaml to configure the identity of the keypair. 
 (example)
 ```
