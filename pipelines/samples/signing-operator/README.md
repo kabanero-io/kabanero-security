@@ -137,7 +137,7 @@ spec:
       W8sFiW3bDz8Vwf+vvxIqFg5gnXU0SXXClok=
       =D/n0
       -----END PGP PUBLIC KEY BLOCK----- 
-
+```
 After modifying the file, carete the resource
 
 (example)
@@ -152,13 +152,15 @@ To verify that the secret run the following command.
 oc get secret signature-secret-key -n kabanero
 ```
 (example output)
+```
 [admin@openshift signing-operator]# oc get secret signature-secret-key -n kabanero
 NAME                   TYPE     DATA   AGE
 signature-secret-key   Opaque   1      4m6s
 ```
 
-## Uninstall the image signature operator and it's resources
+## Uninstall the image signing operator and it's resources
 
 ```
 make undeploy
 ```
+
