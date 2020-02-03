@@ -2,7 +2,6 @@
 # Override in order to customize
 IMAGE ?= imagesigning-operator:latest
 REPO ?= SET_YOUR_REPOSITORY
-REPO = docker.io/toshiyamamoto
 ifneq "$(REPO)" "SET_YOUR_REPOSITORY"
 	IMAGE =${REPO}/imagesigning-operator:v0.1.0
 endif
@@ -32,17 +31,17 @@ generate:
 	GO111MODULE=on operator-sdk generate k8s
 	GO111MODULE=on operator-sdk generate openapi
 
-install:
-	kubectl config set-context $$(kubectl config current-context) --namespace=kabanero
-	kubectl apply -f deploy/crds/security.kabanero.io_imagesignings_crd.yaml
-
 deploy: 
 
 ifneq "$(IMAGE)" "imagesigning-operator:latest"
+	cp deploy/operator.yaml deploy/operator.yaml.bak || true
 	sed -i 's|REPLACE_IMAGE|$(IMAGE)|g' deploy/operator.yaml
 	oc create namespace kabanero || true
+	oc apply -f deploy/crds/security.kabanero.io_imagesignings_crd.yaml
 	oc apply -f deploy/ -n kabanero
 endif
 
 undeploy:
-	oc delete -f deploy/ -n kabanero
+	oc delete -f deploy/ -n kabanero || true
+	oc delete -f deploy/crds/security.kabanero.io_imagesignings_crd.yaml
+	cp deploy/operator.yaml.bak deploy/operator.yaml
