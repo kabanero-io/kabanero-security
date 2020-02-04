@@ -1,5 +1,5 @@
 # Kabanero Image Scanner
-The kabanero-security repository contains a task, pipeline, and image for scanning images built in the Kabanero pipeline.
+The kabanero-security repository contains a task, pipeline, and image for scanning images built in the Kabanero pipeline. Image scanning is already enabled by default in the kabanero pipelines that at least build and push an image. You can add image scanning to your own pipelines by following these instructions.
 
 # Prerequisites
 
@@ -97,7 +97,7 @@ The scan-pipeline.yaml file can be used to run the scan-task task. Add the resou
         value: /scap/content/ssg-rhel7-ds.xml
 ```
 
-If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter. Use the options-and-arguments parameter to customize the scan by specifying the module's operation options and arguments.
+If you mounted a host path with additional SCAP content, the definition file can be specified in the pathToInputFile input parameter. Use the options-and-arguments parameter to customize the scan by specifying the module's operation options and arguments. Visit http://static.open-scap.org/openscap-1.3/oscap_user_manual.html#_scanning_with_oscap for more information on how to use the scanner options and arguments to evaluate specific profiles, rules, and definitions.
 
 ## Create the PipelineResource
 
