@@ -5,8 +5,8 @@ The kabanero-security image signing operator is a sample operator for image sign
 
 The image signing opeator is for automating various configurations which are required enabling the image signing by the Tekton pipeline in Kanabero.
 The current code does following:
-- generate or import RSA keypair for the image signing based on the values of ImageSigning custom resource instance.
-- create the signature-secret-key secret resource from the RSA keypair. This secret is consued by the image signing task of Tekton pipeline.
+- Generate or import RSA keypair for the image signing based on the values of ImageSigning custom resource instance.
+- Create the signature-secret-key secret resource from the RSA keypair. This secret is consued by the image signing task of Tekton pipeline.
 - When the ImageSignig custom resource is deleted, the corresponding signature-secret-key resource is also deleted.
 - If the generated signature-secret-key resource is deleted, the same secret will be created by the image signing operator.
 
@@ -18,7 +18,7 @@ The image signing operator is developed using operator-sdk version 0.11.0.
 
 In order to build and deploy the operator, the following prerequisite packages need to be installed:
 - go version 1.13 or later
-- operator SDK version 1.11.0
+- Operator SDK version 0.11.0
 - Openshift Container Platform 4.2 CLI
 
 ## Building the sample operator
@@ -30,7 +30,7 @@ git clone https://github.com/kabanero-io/kabanero-security/pipelines/samples/sig
 cd signing-operator
 ```
 
-You will need to examine the Makefile and set any necessary variables to push your container images to the correct repository. Especially, make sure that the variable of REPO is point to the corret repository, otherwise, the image will not pe pushed.
+You will need to examine the Makefile and set any necessary variables to push your container images to the correct repository. Especially, make sure that the variable of REPO is pointing to the correct repository, otherwise, the image will not pe pushed.
 
 ### Login to OCP 
 (example)
@@ -71,7 +71,7 @@ oc delete secret/signature-secret-key -n kabanero
 ```
 If the image signing sample has not been installed, install it by using
 kabanero-security/pipelines/samples/signing/create-resources-for-signing-operator-4.sh
-This script is the same as the original scrept which configures image signing sample pipeline, but it skips generating a keypair. Make sure that the file is modified to set required parameters for your environment prior to run it.
+This script is the same as the original script which configures image signing sample pipeline, but it skips generating a keypair. Make sure that the file is modified to set required parameters for your environment prior to running it.
 
 Modify signing-operator/deploy/crds/security.kabanero.io_v1alpha1_imagesigning_generate_sample_cr.yaml to configure the identity of the keypair. 
 (example)
@@ -146,7 +146,7 @@ spec:
       =D/n0
       -----END PGP PUBLIC KEY BLOCK----- 
 ```
-After modifying the file, carete the resource
+After modifying the file, create the resource
 
 (example)
 ```
