@@ -22,7 +22,32 @@ spec:
       params:
       - name: command
         value: oscap-chroot
+# Use module to specify the type of SCAP content to use. For example, oval or xccdf.
+      - name: module
+        value: oval
+# Use options-and-arguments to specify the module's operation options and arguments.
+#      - name: options-and-arguments
+# To evaluate a specific definition with an OVAL file:
+#        value: --id <definition-id>
+# For example, --id oval:ssg-accounts_password_minlen_login_defs:def:1
+#
+# To evaluate a specific profile from a XCCDF benchmark file:
+#        value: --profile <profile-id>
+# For example, --profile hipaa
+#
+# To evaluate a specific profile from a XCCDF benchmark file that requires a remote resource:
+#        value: --fetch-remote-resources --profile <profile-id>
+# For example, --fetch-remote-resources --profile xccdf_org.ssgproject.content_profile_pci-dss
+#
+# To use a CPE dictionary while evaluating a specific profile:
+#        value: --profile <profile-id> --cpe <dictionary-file-name relative to the task's mount point>
+# For example (with SCAP content mounted to /scap/content), --profile xccdf_org.ssgproject.content_profile_ospp42 --cpe /scap/content/ssg-rhel7-cpe-dictionary.xml
+#
+# To evaluate a specific rule:
+#        value: --profile <profile-id> --rule <rule-id>
+# For example, --profile xccdf_org.ssgproject.content_profile_ospp42 --rule xccdf_org.ssgproject.content_rule_disable_host_auth
+#
       - name: scansDir
         value: kabanero/scans
       - name: pathToInputFile
-        value: /usr/local/share/openscap/cpe/openscap-cpe-oval.xml 
+        value: /usr/local/share/openscap/cpe/openscap-cpe-oval.xml
