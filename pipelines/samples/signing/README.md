@@ -85,6 +85,15 @@ HOST_SIGNATURE_REGISTRY_DIR="/var/lib/atomic/sigstore"
 # the keypair, should set.
 SIGNER_NAME="security@example.com"
 ```
+In order to store generated signatures to the look aside repository if the target image registry does not support storing the signatures, some local storage named "signature-storage" needs to be configured, it could be either Persistent Volume Claim or HostPath. In this example, use Persistent Volume Claim named signature-storage. Unless you configure the storage, a pod which is going to run a image signing pipeline will not start.
+
+```
+    - name: signature-storage
+      persistentVolumeClaim:
+        claimName: signature-storage
+##      hostPath:
+##        path: $HOST_SIGNATURE_STORAGE_DIR
+```
 
 ### run the script which extract the generated secret key then store them as a k8s secret. after that, create a sample pipeline and task for signing.
 in order to browse the contents of pipeline and task, run following command.
@@ -176,6 +185,17 @@ Since it is likely that a node which sign task ran and a node to verify the sign
 Plese refer to the following document for verifying the signature.
 
 https://developers.redhat.com/blog/2019/10/29/verifying-signatures-of-red-hat-container-images/
+
+## Uninstall
+
+Run the following oc commands to uninstall the resources which were installed by this sample
+
+```
+oc delete task/sign-task -n kabanero
+oc delete pipeline/sign-pipeline -n kabanero
+oc delete cm/registry-d-default -n kabanero
+oc delete secret/signature-secret-key -n kabanero
+```
 
 # Step by step instructions for end to end scenario
 
