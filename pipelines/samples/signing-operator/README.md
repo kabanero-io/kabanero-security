@@ -3,10 +3,10 @@ The kabanero-security image signing operator is a sample operator for image sign
 
 # About image signing operator
 
-The image signing opeator is for automating various configurations which are required enabling the image signing by the Tekton pipeline in Kanabero.
+The image signing operator is for automating various configurations which are required enabling the image signing by the Tekton pipeline in Kabanero.
 The current code does following:
 - Generate or import RSA keypair for the image signing based on the values of ImageSigning custom resource instance.
-- Create the signature-secret-key secret resource from the RSA keypair. This secret is consued by the image signing task of Tekton pipeline.
+- Create the signature-secret-key secret resource from the RSA keypair. This secret is consumed by the image signing task of Tekton pipeline.
 - When the ImageSignig custom resource is deleted, the corresponding signature-secret-key resource is also deleted.
 - If the generated signature-secret-key resource is deleted, the same secret will be created by the image signing operator.
 
@@ -14,7 +14,7 @@ The current code does following:
 
 ## Prerequisite
 
-The image signing operator is developed using operator-sdk version 0.11.0.
+The image signing operator is developed using Operator SDK version 0.11.0.
 
 In order to build and deploy the operator, the following prerequisite packages need to be installed:
 - go version 1.13 or later
@@ -30,7 +30,7 @@ git clone https://github.com/kabanero-io/kabanero-security/pipelines/samples/sig
 cd signing-operator
 ```
 
-You will need to examine the Makefile and set any necessary variables to push your container images to the correct repository. Especially, make sure that the variable of REPO is pointing to the correct repository, otherwise, the image will not pe pushed.
+You will need to examine the Makefile and set any necessary variables to push your container images to the correct repository. Especially, make sure that the variable of REPO is pointing to the correct repository, otherwise, the image will not be pushed.
 
 ### Login to OCP 
 (example)
