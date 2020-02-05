@@ -1,0 +1,9 @@
+apiVersion: security.kabanero.io/v1alpha1
+kind: ImageSigning
+metadata:
+  name: default
+spec:
+  identity:
+    name: ImageSigning
+    email: security@example.com
+
