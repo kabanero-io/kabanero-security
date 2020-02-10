@@ -6,7 +6,7 @@
 [High level overview](../design/kabanero_app_sso.pdf)
 
 ## User stories
-- As Champ (solution architect), I would like to be able to ensure that there is a single signon server (OIDC Provider/Server) available for apoplication runtimes to use as part of the Kabanero install/operator in order to offer an immediate SSO experience.
+- As Champ (solution architect), I would like to be able to ensure that there is a single signon server (OIDC Provider/Server) available for application runtimes to use as part of the Kabanero install/operator in order to offer an immediate SSO experience.
 
 ## As-is
 
