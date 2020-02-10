@@ -1,0 +1,14 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: liberty-cert
+spec:
+  secretName: liberty-cert-secret
+  issuerRef:
+    name: liberty-selfsigning-issuer
+    kind: ClusterIssuer
+  commonName: "defaultServer"
+  organization:
+    - Example CA
+  dnsNames:
+  - defaultServer
