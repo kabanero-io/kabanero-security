@@ -3,7 +3,7 @@ This sample installs and uses [cert-manager](https://cert-manager.io/docs/) to c
 
 
 ## Cert-Manager Flow
-![Cert-manager Flow](kabanero_cert_manager.pdf)
+![Cert-manager Flow](cert-manager-flow.jpg)
 
 ## Prerequisites
 1. Have an OCP 4.2+ Cluster already setup
