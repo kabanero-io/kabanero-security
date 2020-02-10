@@ -28,16 +28,18 @@ See: https://github.com/containers/skopeo
 #### 4) Update sign task to configure the signature store location if the signed image is stored other than Openshift internal image registry.
 #### 5) Update sign-pipeline.yaml to include the pipeline task for signing.
 
-resources:
-- name: source-image
-type: image
-- name: signed-image
-type: image
-tasks:
-- name: kabanero-sign
-params:
-- name: sign-by
-value: security@example.com
+```
+   resources:
+   - name: source-image
+   type: image
+   - name: signed-image
+   type: image
+   tasks:
+   - name: kabanero-sign
+   params:
+   - name: sign-by
+   value: security@example.com
+```
 
 Note that the value of sign-by corresponds the email address of the generated keypair.
 #### 6) Signature store
@@ -45,6 +47,10 @@ When the image repository of the signed image is Openshift internal image regist
 Otherwise, the signature is stoared in the location where is configured by sign task.
 
 For phase 2 of this support, we automate the creation of the keypair for signing by the sample image signing operator.
+
+### Issues closed on this to date:
+https://github.com/kabanero-io/kabanero-security/issues/51  Provide automated RSA Key pair generation for image signing
+
 
 ## Discussion:  
 There needs to be more phases of this support that addresses the following:
