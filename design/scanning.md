@@ -65,12 +65,15 @@ We make the scan results available from the Tekton Dashboard by emitting them in
 
 ## Container scanning issues completed:
 https://github.com/kabanero-io/kabanero-security/issues/45  Container Scanning - Phase 2
+
 https://github.com/kabanero-io/kabanero-security/issues/36  Make scan results accessible to Jane
+
 https://github.com/kabanero-io/kabanero-security/issues/40  Provide an option to set scanning modes
 
 ## Follow on work :  
 There needs to be a phase 3 of this support that addresses the following:
 https://github.com/kabanero-io/kabanero-security/issues/57  Container scanning follow-ups - Phase 3
+
 https://github.com/kabanero-io/kabanero-security/issues/39  Provide an option to halt build based on scan results
 
 1) we need to make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.   
