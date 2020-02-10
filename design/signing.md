@@ -58,6 +58,7 @@ https://github.com/kabanero-io/kabanero-security/issues/51  Provide automated RS
 
 ## Discussion:  
 Follow-on work:
+https://github.com/kabanero-io/kabanero-security/issues/61   Container image signature support - Phase 3
 
 - Provide a secure lookaside signature store for supporting external image stores. Ideally some standalone repository which is accessible by a REST API.
 - Automate updating the node configuration for enabling image verification.
