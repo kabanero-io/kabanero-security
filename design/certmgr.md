@@ -4,7 +4,7 @@
 - As part of the security story for Kabanero, we need a way for application runtimes to be able to get Certificate Authority signed personal server certificates.
 This allows microservices running in different runtimes (ie: Open Liberty server instances) to communicate over TLS with minimal configuration.
 
-[High level overview](../design/Kabanero_scan_sign.pdf)
+[High level overview](../design/kabanero_cert_manager.pdf)
 
 ## User stories
 - As Champ (solution architect), I would like to be able to ensure that there is a certificate manager started in the cluster for my application runtimes to use to get personal CA-signed server certs.
