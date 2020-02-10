@@ -72,6 +72,7 @@ https://github.com/kabanero-io/kabanero-security/issues/40  Provide an option to
 
 ## Follow on work :  
 There needs to be a phase 3 of this support that addresses the following:
+
 https://github.com/kabanero-io/kabanero-security/issues/57  Container scanning follow-ups - Phase 3
 
 https://github.com/kabanero-io/kabanero-security/issues/39  Provide an option to halt build based on scan results
