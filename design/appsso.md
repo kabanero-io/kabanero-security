@@ -24,6 +24,12 @@
 
 #### 3) xxxxxxx
 
-## Follow on work :  
+### Current doc on this support (README.md):
+
+## Issues completed:
+https://github.com/kabanero-io/kabanero-security/issues/47   Install/enable default SSO Provider for applications
+
+## Follow on work :
+https://github.com/kabanero-io/kabanero-security/issues/63  IAM Provide support for RH-SSO for Open Liberty - Part 2
 
 ## Discussion :
