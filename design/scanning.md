@@ -63,6 +63,9 @@ The results.xml and report.html files are stored by default in the /var/lib/kaba
 
 We make the scan results available from the Tekton Dashboard by emitting them into the task's console with delimiters showing where the report begins/ends and html report begins/ends. NOTE: This is a temporary solution and needs to be replaced by a more usable option where the scan html file can easily be served up from a developer's browser. See follow on work below.
 
+### Current doc on this support (README.md):
+https://github.com/kabanero-io/kabanero-security/blob/master/pipelines/scanning/README.md
+
 ## Container scanning issues completed:
 https://github.com/kabanero-io/kabanero-security/issues/45  Container Scanning - Phase 2
 
