@@ -18,36 +18,37 @@
 ## Main Feature design
 
 - The following are the steps we will automate in order to enable container signing in the Kabanero pipeline:
-Build:
-### 1) Download and build an Skopeo signing image:
+### Build:
+#### 1) Download and build an Skopeo signing image:
 See: https://github.com/containers/skopeo
-### 2)Upload the image to DockerHub (in kabanero/signing) - these steps are required as part of Kabanero build
+#### 2)Upload the image to DockerHub (in kabanero/signing) - these steps are required as part of Kabanero build
 
-### 3) Update scan-pipeline.yaml to include the pipeline task for signing.  Sample:
+### In the Kabanero pipeline:
+#### 3) Generate RSA keypair for signing and set the generate private key as a secret. It is consumed by skopeo while signing the image.
+#### 4) Update sign task to configure the signature store location if the signed image is stored other than Openshift internal image registry.
+#### 5) Update sign-pipeline.yaml to include the pipeline task for signing.
 
-The scan-pipeline.yaml file can be used to run the scan-task task. Add the resources and tasks to your pipeline,
+resources:
+- name: source-image
+type: image
+- name: signed-image
+type: image
+tasks:
+- name: kabanero-sign
+params:
+- name: sign-by
+value: security@example.com
 
-  resources:
-    - name: git-source
-      type: git
-    - name: docker-image
-      type: image
-  tasks:
-    - name: kabanero-sign
-      taskRef:
-        name: sign-task
-      resources:
-        inputs:
-        - name: git-source
-          resource: git-source
-        - name: docker-image
-          resource: docker-image
-      params:
-      - name: pathToRootfs
-        value: /workspace/image_rootfs
-      - name: signDir
-        value: kabanero/signing
-        
-For phase 2 of this support, we automate the creation of the public/private keys for signing by doing it with GPG in the Kabanero operator.
+Note that the value of sign-by corresponds the email address of the generated keypair.
+#### 6) Signature store
+When the image repository of the signed image is Openshift internal image registry, the generated signature is stored into the same registry.
+Otherwise, the signature is stoared in the location where is configured by sign task.
+
+For phase 2 of this support, we automate the creation of the keypair for signing by the sample image signing operator.
 
 ## Discussion:  
+There needs to be more phases of this support that addresses the following:
+
+- Provide a secure lookaside signature store for supporting external image stores. Ideally some standalone repository which is accessible by REST API.
+- Automate updating the node configuration for enabling image verification.
+
