@@ -18,7 +18,7 @@
 ## Main Feature design
 
 - The install/configure of the default application RHSSO instance is handled by the Kabanero operator.  This also ensures that the instance remains running.  The documentation in support of this is located here:
-[SSO doc install]{rhsso.adoc]
+[SSO doc install](../rhsso.adoc)
 
 ### Current doc on this support (README.md):
 
