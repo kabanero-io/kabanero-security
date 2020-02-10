@@ -17,12 +17,8 @@
 
 ## Main Feature design
 
-- The following are the steps we will automate, installing and operating a RH-SSO/Keycloak instance in the Kabanero environment:
-#### 1) xxxxxxx
-
-#### 2) xxxxxxx
-
-#### 3) xxxxxxx
+- The install/configure of the default application RHSSO instance is handled by the Kabanero operator.  This also ensures that the instance remains running.  The documentation in support of this is located here:
+[SSO doc install]{rhsso.adoc]
 
 ### Current doc on this support (README.md):
 
