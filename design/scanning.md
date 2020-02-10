@@ -18,13 +18,14 @@
 ## Main Feature design
 
 - The following are the steps we will automate in order to enable container scanning in the Kabanero pipeline:
-Build:
-### 1) Download and build an OpenScap scanner image:
+### Done during build:
+#### 1) Download and build an OpenScap scanner image:
 See: https://www.open-scap.org/download/
-### 2) Add OVAL definition files to the image and upload it to DockerHub (in kabanero/scanner) - these steps are required as part of Kabanero build
 
-Done as part of Kabanero pipelines impl:
-### 3) Update scan-pipeline.yaml to include the pipeline task for scanning.  Sample:
+#### 2) Add OVAL and XCCDF definition files to the image and upload it to DockerHub (in kabanero/scanner)
+
+### Done as part of Kabanero pipelines impl:
+#### 3) Update scan-pipeline.yaml to include the pipeline task for scanning.  Sample:
 
 The scan-pipeline.yaml file can be used to run the scan-task task. Add the resources and tasks to your pipeline,
 
@@ -61,7 +62,7 @@ The results.xml and report.html files are stored by default in the /var/lib/kaba
 
 For phase 2 of this support, we make the scan results available from the Tekton Dashboard by emittinmg them into the task's console with delimiters showing where the report begins/ends and html report begins/ends.
 
-## Discussion:  
+## Discussion - follow on work :  
 There needs to be a phase 3 of this support that addresses the following:
 
 1) we need to make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.
