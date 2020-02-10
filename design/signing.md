@@ -52,6 +52,9 @@ When the image repository of the signed image is the Openshift internal image re
 
 We need to automate the creation of the keypair for signing by the sample image signing operator.
 
+### Current doc on this support (README.md):
+https://github.com/kabanero-io/kabanero-security/blob/master/pipelines/samples/README.md
+
 ### Issues closed on this to date:
 https://github.com/kabanero-io/kabanero-security/issues/51  Provide automated RSA Key pair generation for image signing
 
