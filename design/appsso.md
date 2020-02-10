@@ -35,8 +35,10 @@ https://github.com/kabanero-io/kabanero-security/issues/63  IAM Provide support 
 This work will include updates to the Appsody and Open Liberty operators to support the various ways that the SSO server can be used by the app runtimes we support in Kabanero.
 
 We will support an OIDC Register with an SSO/OIDC provider two ways:
-#### 1) auto-register - for the Kabanero pipeline, if SSO is enabled, we will automatically register Liberty servers with the SSO provider (the default RH-SSO installed in the cluster)
+#### 1) auto-register
+For the Kabanero pipeline, if SSO is enabled, we will automatically register Liberty servers with the SSO provider (the default RH-SSO installed in the cluster)
 
-#### 2) pre-register - we will also provide an option to do the OIDC registration manually (ie:for AppID or CloudIdentity or some other OIDC provider) and then provide the config related to this to Liberty (feature, client secret, client ID, discoveryURL).  
+#### 2) pre-register
+We will also provide an option to do the OIDC registration manually (ie:for AppID or CloudIdentity or some other OIDC provider) and then provide the config related to this to Liberty (feature, client secret, client ID, discoveryURL).  
 
 ## Discussion :
