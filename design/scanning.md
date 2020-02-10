@@ -23,6 +23,7 @@
 See: https://www.open-scap.org/download/
 
 #### 2) Add OVAL and XCCDF definition files to the image and upload it to DockerHub (in kabanero/scanner)
+Champ needs to be able to customize the scanning options. This needs to be done with configuration (indicating what sets of OVAL or XCCDF rules should be used for the scan).
 
 ### Done as part of Kabanero pipelines impl:
 #### 3) Update scan-pipeline.yaml to include the pipeline task for scanning.  Sample:
@@ -60,11 +61,17 @@ If you mounted a host path with additional SCAP content, the definition file can
 ### 4) Scan results
 The results.xml and report.html files are stored by default in the /var/lib/kabanero/scans directory of the worker node that runs the pod for the PipelineRun executing the scan.
 
-For phase 2 of this support, we make the scan results available from the Tekton Dashboard by emittinmg them into the task's console with delimiters showing where the report begins/ends and html report begins/ends.
+We make the scan results available from the Tekton Dashboard by emitting them into the task's console with delimiters showing where the report begins/ends and html report begins/ends. NOTE: This is a temporary solution and needs to be replaced by a more usable option where the scan html file can easily be served up from a developer's browser. See follow on work below.
 
-## Discussion - follow on work :  
+## Container scanning issues completed:
+https://github.com/kabanero-io/kabanero-security/issues/45  Container Scanning - Phase 2
+https://github.com/kabanero-io/kabanero-security/issues/36  Make scan results accessible to Jane
+https://github.com/kabanero-io/kabanero-security/issues/40  Provide an option to set scanning modes
+
+## Follow on work :  
 There needs to be a phase 3 of this support that addresses the following:
+https://github.com/kabanero-io/kabanero-security/issues/57  Container scanning follow-ups - Phase 3
+https://github.com/kabanero-io/kabanero-security/issues/39  Provide an option to halt build based on scan results
 
-1) we need to make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.
-2) we need to help the administrator (Champ) in configuring what OVAL files should be enabled for a run - allowing him to tweak what is being assessed and narrow the run results
-3) after #2 above is addressed, we need to be able to fail the build when any Red/Yellow results are found in the scan
+1) we need to make the html report (and possibly the full XML report) available from some kind of web file server. Requiring developers to download the Tekton Dashboard task log and have to edit it to get the html report is not an acceptable/usable solution.   
+2) we need to be able to fail the build when any Red/Yellow results are found in the scan
