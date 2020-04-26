@@ -28,7 +28,13 @@ items:
           fi
           gpg --import /etc/gpg/secret.asc
           SIGNBY=`gpg --list-keys|sed -n -e "/.*<.*>.*/p"|sed -e "s/^.*<\(.*\)>.*$/\1/"`
-          skopeo --debug copy --dest-tls-verify=false --src-tls-verify=false --remove-signatures --sign-by $SIGNBY "docker://$(inputs.resources.source-image.url)" "docker://$(inputs.resources.signed-image.url)"
+          skopeo copy --dest-tls-verify=false --src-tls-verify=false --remove-signatures --sign-by $SIGNBY "docker://$(inputs.resources.source-image.url)" "docker://$(inputs.resources.signed-image.url)"
+          RESULT=$?
+          if [ $RESULT -ne 0 ]
+          then
+             echo "sign-image failed. exit code : $RESULT"
+             exit $RESULT
+          fi
       volumeMounts:
         - name: image-signing-config
           mountPath: /etc/gpg
