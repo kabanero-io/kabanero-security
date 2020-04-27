@@ -20,13 +20,13 @@ items:
       args:
         - -c
         - |
-          REPO=`cat /etc/gpg/registry`
+          REPO=`cat /image-signing-config/registry`
           if [[ $(inputs.resources.signed-image.url) != $REPO/* ]]
           then
              echo "The specified signed image repository does not match the name of the repository in image-signing-config secret resource. The repository name should start with $REPO, Specified signed image name is $(inputs.resources.signed-image.url)"
            exit 1
           fi
-          gpg --import /etc/gpg/secret.asc
+          gpg --import /image-signing-config/secret.asc
           SIGNBY=`gpg --list-keys|sed -n -e "/.*<.*>.*/p"|sed -e "s/^.*<\(.*\)>.*$/\1/"`
           skopeo copy --dest-tls-verify=false --src-tls-verify=false --remove-signatures --sign-by $SIGNBY "docker://$(inputs.resources.source-image.url)" "docker://$(inputs.resources.signed-image.url)"
           RESULT=$?
@@ -37,7 +37,7 @@ items:
           fi
       volumeMounts:
         - name: image-signing-config
-          mountPath: /etc/gpg
+          mountPath: /image-signing-config
         - name: registries-d-dir
           mountPath: /etc/containers/registries.d
     volumes:
