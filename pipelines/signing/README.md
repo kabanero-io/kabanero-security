@@ -1,8 +1,8 @@
 # Kabanero Container Image Signing 
-The kabanero-security repository contains sample tasks, and pipelines for signing container images built in the Kabanero pipeline. Container image signing is embedded some of the kabanero pipelines which push an image to an image registry. By default, the container image signing is not enabled. To enable image signing, review the following instructions.
+The kabanero-security repository contains sample tasks, and pipelines for signing container images built in the Kabanero pipeline. Container image signing is embedded in some of the kabanero pipelines which push an image to an image registry. By default, the container image signing is not enabled. To enable image signing, review the following instructions.
 
 # About container image signing and verification
-There are several variations to assure the integrity and authenticity of the container image. Kabanero image signing follows [this standard](https://github.com/containers/image/blob/master/docs/containers-signature.5.md) which can be used for both Openshift internal image registry and external image registries.
+There are several variations to assure the integrity and authenticity of the container image. Kabanero image signing follows [this standard](https://github.com/containers/image/blob/master/docs/containers-signature.5.md) which can be used for both OpenShift internal image registry and external image registries.
 The container tool such as cri-o, podman or docker are capable to compute the signature of an image and prevent pulling the image into it's local registry unless the signature value matches with the original image signature value. With this functionality, it can prevent deploying un-trusted or potentially altered images in the system.
 
 # Prerequisites
@@ -10,7 +10,7 @@ The container tool such as cri-o, podman or docker are capable to compute the si
 ## Container image for image signing
 
 Kabanero-security uses [skopeo](https://github.com/containers/skopeo) for the container image signing.
-Therefore, it is required to use a container image which skopeo is available. The kabanero-pipelines are used to use [kabanero/kabanero-utils](https://hub.docker.com/r/kabanero/kabanero-utils) container image, also the same iange is used in the standaline image siging task example in this document.
+Therefore, it is required to use a container image which skopeo is available. The kabanero-pipelines are used to use [kabanero/kabanero-utils](https://hub.docker.com/r/kabanero/kabanero-utils) container image, also the same image is used in the standalone image siging task example in this document.
 
 The first step is to create an image which is responsible to access the original image, compute signature value, then store signed image and it's signature as one of tasks of the pipeline.
 
@@ -69,7 +69,7 @@ kind: Secret
 metadata:
   name: image-signing-config
 data:
-  secret.asc: <armerd secret key>
+  secret.asc: <ascii armored secret key>
   registry: <registry name where the signed image is stored. i.e., >
 ```
 
