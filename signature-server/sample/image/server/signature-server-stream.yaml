@@ -1,0 +1,12 @@
+#ImageStream for creating the image containing the image signing lookaside server
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    build: signature-server
+  name: signature-server
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: ""

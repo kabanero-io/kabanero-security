@@ -1,0 +1,28 @@
+# BuildConfig for creating the image containing the image signing lookaside server. 
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: signature-server
+  name: signature-server
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: signature-server:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    binary: {}
+    configMaps:
+    - configMap:
+        name: phpfile
+      destinationDir: phpfile
+    type: Binary
+  strategy:
+    dockerStrategy: {}
+    type: Docker
+  successfulBuildsHistoryLimit: 5
