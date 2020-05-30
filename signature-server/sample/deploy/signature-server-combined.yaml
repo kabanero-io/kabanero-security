@@ -159,8 +159,8 @@ items:
           - --tls-cert=/etc/tls/private/tls.crt
           - --tls-key=/etc/tls/private/tls.key
           - --cookie-secret=SECRET
-          - --openshift-sar={"group":"","resource":"secrets","verb":"create"}
-          - --openshift-delegate-urls={"/":{"group":"","resource":"secrets","verb":"create"}}
+          - --openshift-sar={"group":"","resource":"imagesignatures","verb":"create"}
+          - --openshift-delegate-urls={"/":{"group":"","resource":"imagesignatures","verb":"create"}}
           - --skip-auth-regex=^/signatures/.*
           - --skip-provider-button
           volumeMounts:
