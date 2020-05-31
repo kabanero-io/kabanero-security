@@ -110,7 +110,19 @@ To store a signature, a HTTP PUT method is used. The target URI is the form
 
 > `/staging/`_registry_`/`_namespaces_`/`_name_`@`_digest-algo_`=`_digest-value_`/signature-`_index_
 
-The target is protected by OpenShift OAuth proxy. A bearer token is required to authenticate and authorize a request. The token needs to be granted accessing a secret and web resources. For Kabanero either using kabanero-operator service account or use image-signer sample service account which is available in this repository.
+The target is protected by OpenShift OAuth proxy. A bearer token is required to authenticate and authorize requests. The token needs to be granted to store ImageSignature. Following shows the  required role.
+```
+- apiGroups:
+  - ''
+  - image.openshift.io
+  resources:
+    - imagesignatures
+  verbs:
+    - create
+    - delete
+```
+
+For Kabanero either using kabanero-operator service account or use image-signer sample service account which is available in this repository.
 
 The following shows an example by using curl when a signature of which name is signature-1 is for the image `mynamespace/busybox@sha256:817a12c32a39bbe394944ba49de563e085f1d3c5266eb8e9723256bc4448680e` which is stored in a registry `registry.example.com:5000` and a url of a look aside signature store is `signatures-server-icp4app-security.apps.myocp.example.com`
 You need to modify existing Tekton tasks to add the code to put a generated signature to the signature server. 
