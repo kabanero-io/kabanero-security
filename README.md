@@ -34,3 +34,6 @@ The container created in the build may be tagged, signed, and scanned for vulner
 
 ### Developers access to build and application logs
 Developers that need to view build or application logs are required to have an Open Shift userid. For build logs developers need to authenticate with the Tekton Dashboard and can then view all build logs. There is not yet any fine grained role based access (RBAC) for the build logs, a successful login is all that is required. For access to application runtime logs, developers require an ID with SSH privileges so they may login to the Pod and view the logs. If ELK or EFK are installed and enabled, developers could also view logs using Kibana.
+
+### Sample image signature server
+The sample image signature server can be used as an augmenting server for any existing image registry to support the image signing and verification which is defined by [signature data](https://github.com/containers/image/blob/master/docs/containers-signature.5.md) and [access protocol](https://github.com/containers/image/blob/master/docs/signature-protocols.md). Refer to [this documentation](https://github.com/kabanero-io/kabanero-security/blob/master/signature-server/sample/README.md) for more information.
