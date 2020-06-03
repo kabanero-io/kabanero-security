@@ -1,0 +1,201 @@
+kind: List
+apiVersion: v1
+items:
+# ConfigMap for enabling storing segnatures data to a secret.
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: signature-server-config
+  data:
+    sigstore-save-secret: "true"
+# Service Account
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: signature-server
+    annotations:
+      serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"signature-server"}}'
+# ClusterRole
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  metadata:
+    name: signature-server
+  rules:
+  - apiGroups:
+    - ''
+    resources:
+    - secrets
+    - serviceaccounts
+    verbs:
+    - create
+    - delete
+    - deletecollection
+    - get
+    - list
+    - patch
+    - update
+    - watch
+  - apiGroups:
+    - 'image.openshift.io'
+    resources:
+    - '*'
+    verbs:
+    - '*'
+  - apiGroups:
+    - 'authentication.k8s.io'
+    resources:
+    - tokenreviews
+    verbs:
+    - '*'
+  - apiGroups:
+    - 'authorization.k8s.io'
+    resources:
+    - subjectaccessreviews
+    verbs:
+    - '*'
+# Role binding
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: ClusterRoleBinding
+  metadata:
+    name: signature-server
+  subjects:
+    - kind: ServiceAccount
+      name: signature-server
+      namespace: kabanero-security
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: signature-server
+# Route a connection to the proxy.
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: signature-server
+  spec:
+    to:
+      kind: Service
+      name: signature-server
+    tls:
+      termination: reencrypt
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: signature-server
+    annotations:
+      service.alpha.openshift.io/serving-cert-secret-name: proxy-tls
+  spec:
+    ports:
+    - name: http
+      port: 443
+      targetPort: 8443
+    selector:
+      app: signature-server
+
+# Launch a proxy as a sidecar
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: signature-server
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: signature-server
+    template:
+      metadata:
+        labels:
+          app: signature-server
+      spec:
+        serviceAccountName: signature-server
+        restartPolicy: Always
+        triggers:
+        - type: ConfigChange
+        initContainers:
+        - name: signature-init-server
+          image: image-registry.openshift-image-registry.svc:5000/kabanero-security/signature-init-server
+          env:
+          - name: SIGSTORE_SAVE_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: signature-server-config
+                key: sigstore-save-secret
+          command: ['/bin/bash']
+          args:
+            - -c
+            - |
+              shopt -s nocasematch
+              if [[ $SIGSTORE_SAVE_SECRET == "true" ]]
+              then 
+                STORED="/tmp/signature-data/stored.zip"
+                if [[ -f $STORED ]]
+                then
+                  echo "Restore signature data from backup."
+                  unzip $STORED -d /tmp/signatures
+                  echo "Restored."
+                else
+                  echo "The backup does not exist."
+                fi
+              else
+                echo "No need to restore signature data."
+              fi
+
+          volumeMounts:
+            - name: signatures
+              mountPath: /tmp/signatures/
+            - name: signature-data
+              mountPath: /tmp/signature-data/
+        containers:
+        - name: oauth-proxy
+          image: openshift/oauth-proxy:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8443
+            name: public
+          args:
+          - --https-address=:8443
+          - --provider=openshift
+          - --openshift-service-account=signature-server
+          - --upstream=http://localhost:8080
+          - --tls-cert=/etc/tls/private/tls.crt
+          - --tls-key=/etc/tls/private/tls.key
+          - --cookie-secret=SECRET
+          - --openshift-sar={"group":"","resource":"imagesignatures","verb":"create"}
+          - --openshift-delegate-urls={"/":{"group":"","resource":"imagesignatures","verb":"create"}}
+          - --skip-auth-regex=^/signatures/.*
+          - --skip-provider-button
+          volumeMounts:
+          - mountPath: /etc/tls/private
+            name: proxy-tls    
+        - name: signature-server
+          image: image-registry.openshift-image-registry.svc:5000/kabanero-security/signature-server:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          env:
+          - name: SIGSTORE_SAVE_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: signature-server-config
+                key: sigstore-save-secret
+          volumeMounts:
+            - name: signatures
+              mountPath: /var/www/sigstore/html/signatures/
+        volumes:
+        - name: proxy-tls
+          secret:
+            secretName: proxy-tls
+        - name: signature-data
+          secret:
+            secretName: signature-data
+            optional: true
+        - name: signatures
+          emptyDir: {}
+
+
+
+
+
+
+
