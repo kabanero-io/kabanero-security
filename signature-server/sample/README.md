@@ -35,7 +35,7 @@ This sample uses ImageStream of OpenShift, therefore OpenShift CLI environment o
 # Build
 ## Copy kabanero-security Git repository
 
-After [download](https://github.com/kabanero-io/kabanero-security/releases/download/v0.1/signature-server-v0.1.zip) and unzip the file, or [clone](https://github.com/kabanero-io/kabanero-security.git) the repository, change the current directory to `signature-server`.
+After [download signature-server-v0.1.zip](https://github.com/kabanero-io/kabanero-security/releases/download/v0.1/signature-server-v0.1.zip) and unzip the file, or [clone](https://github.com/kabanero-io/kabanero-security.git) the repository, change the current directory to `signature-server`.
 
 ## Building the images
 
