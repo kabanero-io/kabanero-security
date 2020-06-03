@@ -35,7 +35,7 @@ This sample uses ImageStream of OpenShift, therefore OpenShift CLI environment o
 # Build
 ## Copy kabanero-security Git repository
 
-After [download](https://github.com/kabanero-io/kabanero-security/archive/master.zip) and unzip the file, or [clone](https://github.com/kabanero-io/kabanero-security.git) the repository, change the current directory to `kabanero-security`.
+After [download](https://github.com/kabanero-io/kabanero-security/releases/download/v0.1/signature-server-v0.1.zip) and unzip the file, or [clone](https://github.com/kabanero-io/kabanero-security.git) the repository, change the current directory to `signature-server`.
 
 ## Building the images
 
@@ -46,9 +46,9 @@ Since the build is done by the image stream on OpenShift, login to a cluster pri
 oc login -u admin -p security https://openshift.my.com:8443/
 ```
 
-Run the `signature-server/sample/image/build.sh` to build two servers. 
+Run the `sample/image/build.sh` to build two servers. 
 
-The build creates the image in kabanero-security namespace and push the image to the OCP internal image registry. Note that the namespace can be changed by modifying `signature-server/sample/image/build.sh`.
+The build creates the image in kabanero-security namespace and push the image to the OCP internal image registry. Note that the namespace can be changed by modifying `sample/image/build.sh`.
 
 Verify the servers have been created as ImageStream.
 
