@@ -1,3 +1,5 @@
+# NOTE: This repository has been forked to: https://github.com/icp4apps/kabanero-security.  Official builds will be based off that repoisotry.
+
 # kabanero-security
 
 Security for Kabanero has several aspects. 
